@@ -28,7 +28,7 @@ namespace Storage
             services.AddControllersWithViews();
 
             services.AddDbContext<StorageContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("StorageContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("StorageContext")).EnableSensitiveDataLogging());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

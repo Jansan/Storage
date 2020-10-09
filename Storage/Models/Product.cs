@@ -41,7 +41,7 @@ namespace Storage.Models
         public int Count { get; set; }
 
         //Description
-        [Range(0, int.MaxValue)]
+        [StringLength(50)]
         [DisplayFormat(ConvertEmptyStringToNull = true, NullDisplayText = "-")]
         public string Description { get; set; }
 

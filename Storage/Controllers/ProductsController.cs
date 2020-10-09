@@ -7,23 +7,41 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Storage.Data;
 using Storage.Models;
+using Storage.Models.ViewModels;
 
 namespace Storage.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly StorageContext _context;
+        private readonly StorageContext _context;//db
 
         public ProductsController(StorageContext context)
         {
             _context = context;
         }
 
+
+        //// GET: Products
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Product.ToListAsync());
+        //}
         
-        // GET: Products
+
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Product.ToListAsync());
+            var model2 = _context.Product.ToList();
+
+            var  model =  _context.Product.Select(p => new ProductViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Count = p.Count,
+                Price = p.Price,
+                InventoryValue = p.Price * p.Count
+            });
+
+            return View("Index2", await model.ToListAsync());
         }
 
         // GET: Products/Details/5
