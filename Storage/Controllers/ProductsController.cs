@@ -28,9 +28,9 @@ namespace Storage.Controllers
         //}
         
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name = null)
         {
-            var model2 = _context.Product.ToList();
+           // var model2 = _context.Product.ToList();
 
             var  model =  _context.Product.Select(p => new ProductViewModel
             {
@@ -40,6 +40,11 @@ namespace Storage.Controllers
                 Price = p.Price,
                 InventoryValue = p.Price * p.Count
             });
+
+            if (name != null)
+            {
+                model = model.Where(p => p.Name.Contains(name));
+            }
 
             return View("Index2", await model.ToListAsync());
         }
